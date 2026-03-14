@@ -1,0 +1,55 @@
+name: lifehours
+description: "Track your life in work hours."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  shared_preferences: ^2.5.4
+  mobile_scanner: ^7.2.0
+  flutter_local_notifications: ^17.0.0
+  timezone: ^0.9.4
+  share_plus: ^10.0.0
+  http: ^1.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  flutter_native_splash: ^2.4.3
+  flutter_launcher_icons: ^0.14.3
+
+# ── Splash Screen ──────────────────────────────────────────────────────────
+flutter_native_splash:
+  color: "#0D1B2A"
+  color_dark: "#0D1B2A"
+  image: assets/splash_logo.png
+  android_12:
+    image: assets/splash_logo.png
+    icon_background_color: "#0D1B2A"
+    color: "#0D1B2A"
+  fullscreen: true
+
+# ── App Icon ───────────────────────────────────────────────────────────────
+flutter_launcher_icons:
+  android: true
+  ios: true
+  min_sdk_android: 21
+  image_path: "assets/app_icon.png"
+  adaptive_icon_background: "#0D1B42"
+  adaptive_icon_foreground: "assets/app_icon.png"
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/app_icon.png
+    - assets/app_icon_fg.png
+    - assets/splash_logo.png
+    - assets/home_logo.png
