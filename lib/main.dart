@@ -1195,80 +1195,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
               const SizedBox(height: 12),
-              _settingsTile(
-                icon: Icons.key_outlined,
-                title: 'Anthropic API Key',
-                subtitle: 'Required for AI Report',
-                onTap: () async {
-                  final prefs2 = await SharedPreferences.getInstance();
-                  final currentKey =
-                      prefs2.getString('anthropic_api_key') ?? '';
-                  final controller = TextEditingController(text: currentKey);
-                  if (!mounted) return;
-                  await showDialog(
-                    context: context,
-                    builder: (ctx2) => AlertDialog(
-                      backgroundColor: const Color(0xFF1A2E45),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      title: const Text(
-                        'API Key',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      content: TextField(
-                        controller: controller,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                        ),
-                        decoration: const InputDecoration(
-                          hintText: 'sk-ant-api03-...',
-                          hintStyle: TextStyle(
-                            color: Colors.white24,
-                            fontSize: 12,
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white24),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.pop(ctx2),
-                          child: const Text(
-                            'Cancel',
-                            style: TextStyle(color: Colors.white38),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            await prefs2.setString(
-                              'anthropic_api_key',
-                              controller.text.trim(),
-                            );
-                            if (mounted) Navigator.pop(ctx2);
-                          },
-                          child: const Text(
-                            'Save',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(height: 12),
               const Divider(color: Colors.white12),
               const SizedBox(height: 12),
 
@@ -3137,22 +3063,11 @@ Write a warm, insightful 3-4 sentence personal commentary in English. Be specifi
   }
 
   Future<String> _callClaude(String prompt) async {
-    const apiKey = 'YOUR_API_KEY_HERE';
     final response = await http
         .post(
-          Uri.parse('https://api.anthropic.com/v1/messages'),
-          headers: {
-            'content-type': 'application/json',
-            'x-api-key': apiKey,
-            'anthropic-version': '2023-06-01',
-          },
-          body: jsonEncode({
-            'model': 'claude-haiku-4-5-20251001',
-            'max_tokens': 300,
-            'messages': [
-              {'role': 'user', 'content': prompt},
-            ],
-          }),
+          Uri.parse('https://lifehours-ai.ahmet-kaya-1994.workers.dev'),
+          headers: {'content-type': 'application/json'},
+          body: jsonEncode({'prompt': prompt}),
         )
         .timeout(const Duration(seconds: 20));
     debugPrint('AI STATUS: ${response.statusCode}');
